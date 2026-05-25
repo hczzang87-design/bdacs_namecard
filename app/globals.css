@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  --static-black: #222222;
+  --static-white: #ffffff;
+  --primary: #b21259;
+  --primary-heavy: #a01050;
+  --sub-normal: #293377;
+  --sub-heavy: #21295f;
+  --label-strong: #000000;
+  --label-normal: #222222;
+  --label-neutral: #666666;
+  --label-alternative: #999999;
+  --label-assistive: #b2b2b2;
+  --line-normal: #eaebf1;
+  --background-normal: #ffffff;
+  --background-alternative: #fbfbfc;
+  --material-dim: #222222;
+  --status-positive: #05cd99;
+  --status-negative: #d30000;
+
+  --background: var(--background-normal);
+  --foreground: var(--label-normal);
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Malgun Gothic", "Noto Sans KR", sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-static-white: var(--static-white);
+  --color-label-strong: var(--label-strong);
+  --color-label-normal: var(--label-normal);
+  --color-label-neutral: var(--label-neutral);
+  --color-label-alternative: var(--label-alternative);
+  --color-label-assistive: var(--label-assistive);
+  --color-sub-heavy: var(--sub-heavy);
+  --color-background-normal: var(--background-normal);
+  --color-background-alternative: var(--background-alternative);
+  --color-sub-normal: var(--sub-normal);
+  --color-status-negative: var(--status-negative);
+  --font-sans: var(--font-sans);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.namecard-scene {
+  perspective: 1400px;
+}
+
+.namecard-float-wrap {
+  opacity: 0;
+  transform: scale(0.88) translateY(28px);
+  filter: drop-shadow(0 24px 48px rgba(34, 34, 34, 0.28));
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.namecard-float-wrap.namecard-entered {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.namecard-float-wrap.namecard-float-active {
+  animation: namecard-float 4.2s ease-in-out 0.1s infinite;
+}
+
+.namecard-flipper {
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  height: 100%;
+  width: 100%;
+}
+
+.namecard-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@keyframes namecard-float {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1) translateY(-8px);
+  }
+}
+
+@keyframes reveal-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.reveal-spinner {
+  animation: reveal-spin 0.85s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .namecard-float-wrap {
+    transition: opacity 0.3s ease;
+  }
+
+  .namecard-float-wrap.namecard-float-active {
+    animation: none;
+  }
+}
